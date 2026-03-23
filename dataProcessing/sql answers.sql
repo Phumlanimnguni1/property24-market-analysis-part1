@@ -48,12 +48,55 @@ from [property24].[dbo].[property24_v1]
 order by floor_size asc;
 
 --11. Show Gauteng properties ordered by monthly repayment.
+select *
+from [property24].[dbo].[property24_v1]
+where province = 'gauteng'
+order by monthly_repayment;
+
 --12. Find Western Cape properties priced below R3,000,000.
+select *
+from [property24].[dbo].[property24_v1]
+where province = 'western cape' and property_price < 3000000;
+
 --13. Show KwaZulu-Natal properties with 3 or more bedrooms.
+select *
+from [property24].[dbo].[property24_v1]
+where province ='kwazulu-natal' and bedrooms >=3;
+
 --14. Find properties in Limpopo or Free State ordered by property price.
+select *
+from [property24].[dbo].[property24_v1]
+where province in ('limpopo','free state')
+order by property_price desc;
+
 --15. Show the 10 most expensive properties.
+select top 10 *
+from [property24].[dbo].[property24_v1]
+order by property_price desc;
+
 --16. Show the 5 cheapest properties.
+select top 5 *
+from [property24].[dbo].[property24_v1]
+order by property_price asc;
+
 --17. Show the top 10 properties with the largest floor size.
+select top 10 *
+from [property24].[dbo].[property24_v1]
+order by floor_size desc;
+
 --18. Which province appears to have the highest priced properties?
+select province, AVG(cast(property_price as BIGINT)) as average_price
+from [property24].[dbo].[property24_v1]
+group by province
+order by average_price desc;
+
 --19. Which cities appear to have the most affordable housing?
+select city, AVG(cast(property_price as BIGINT)) as average_price
+from [property24].[dbo].[property24_v1]
+group by city
+order by average_price asc;
+
 --20. What minimum income is typically required for properties priced above R4,000,000?
+select avg(min_gross_monthly_income) as minimum_income_required
+from [property24].[dbo].[property24_v1]
+where property_price > 4000000;
